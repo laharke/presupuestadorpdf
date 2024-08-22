@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}NIXEL{% endblock %}</title>
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <link href="{% static 'clientes/styles.css' %}" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://kit.fontawesome.com/e09b5770e3.js" crossorigin="anonymous"></script>
+        <script src="{% static 'script.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+        {% block script %}
+        {% endblock %}
+
+    </head>
+    
+    
+    <!--nav bar--> 
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 0;">
+        <div class="container-fluid">
+          <a style="padding: 0" class="navbar-brand"><img href="#" class="imgLogo" src="{% static 'media/globalgpslogo.png' %}" alt="Global GPS LOGO"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          {% if user.is_authenticated %}
+          <div class="collapse navbar-collapse navEnd" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a style="font-weight: bold;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Admin Panel
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{% url 'abm_dispositivos' %}">Administrar Dispositivos</a></li>
+                  <li><a class="dropdown-item" href="{% url 'generar_pdf' %}">Generar PDF</a></li>
+                  <li><a class="dropdown-item" href="{% url 'logout_view' %}">Log Out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          {% endif %}
+          <div class="collapse navbar-collapse navEnd" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Sobre Nosotros
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="https://www.nixel.com.ar/2.0/" target="_blank">¿Quienes Somos?</a></li>
+                  <li><a class="dropdown-item" href="#projects">Nuestros Proyectos</a></li>
+                  <li><a class="dropdown-item" href="#contactSection">Contacto</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="presupuesto.html">Presupuesto</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://gps.nixel.com.ar/index.php?au=44F1D760E2D7C318C736081F27B06CDF" target="_blank_">Probar demo</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <body>
+  
+        
+        <div class="body">
+            {% block body %}
+            {% endblock %}
+        </div>
+        <!-- Alerts-->
+        {% if message %}
+        <div id='dangerAlert' class="alert alert-danger" role="alert" style="width: fit-content;" >
+          <i class="bi bi-exclamation-triangle-fill" style="margin-right: 8px;">  </i>    
+          <span>{{ message }}</span>
+        </div>
+        {% endif %}
+  
+        <div id='infoAlert' class="alert alert-primary" role="alert" style="width: fit-content; display: none !important;" >
+            <i class="bi bi-info-circle-fill" style="margin-right: 8px;"></i>
+            <span>A simple primary alert—check it out!</span>
+        </div>
+        
+        
+        <div id='dangerAlert' class="alert alert-danger" role="alert" style="width: fit-content; display: none !important;" >
+            <i class="bi bi-exclamation-triangle-fill" style="margin-right: 8px;">  </i>    
+            <span>An example danger alert with an icon</span>
+        </div>
+        
+        
+        <div id='successAlert' class="alert alert-success" role="alert" style="width: fit-content; display: none !important;" >
+            <i class="bi bi-check-circle-fill" style="margin-right: 8px;"></i>
+            <span>An example success alert with an icon</span>
+        </div>
+    </body>
+  
+    
+  
+</html>

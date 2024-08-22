@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block script %}
+    <script src="{% static 'generar_pdf.js' %}"></script>
+{% endblock %}
+
+
+
+{% block body %}
+{% if user.is_authenticated %}
+
+    <!-- Table -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                    <div class="form-group col-md-6">
+                        <label for="name">Empresa</label>
+                        <input type="text" class="form-control" name="empresa" id="empresa" placeholder="Ingrese nombre" required>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4" style="display: flex; justify-content: center !important;">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th class="col-md-2">Bonificado</th>
+                    <th style="display:none;">
+                </tr>
+            </thead>
+            <tbody>
+
+                    {% for dispositivo in dispositivos %}
+                    <tr>
+                        <td>{{ dispositivo.nombre }}</td>
+                        <td>${{ dispositivo.precio }}</td>
+                        <td><input type="number" name="" id=""></td>
+                        <td><input type="checkbox" name="" id=""></td>
+                        <th style="display:none;" {{ dispositivo.pagoUnico }}>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="row justify-content-center">
+        <button onclick="" class="btn btn-dark btn-large">Genrar pdf</button>
+    </div>
+
+{% endif %}
+
+
+{% endblock %}

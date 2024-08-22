@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block script %}
+    <script src="{% static 'abm_dispositivos.js' %}"></script>
+{% endblock %}
+
+
+{% block body %}
+{% if user.is_authenticated %}
+
+
+    <div class="container mt-5">
+        <!-- Form -->
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form class="card p-4"  action="{% url 'abm_dispositivos' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="name">Dispositivo</label>
+                            <input type="text" class="form-control" name="nombreDispositivo" id="name" placeholder="Ingrese nombre" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="number">Precio</label>
+                            <input type="text" class="form-control" name="precioDispositivo" id="number" placeholder="Ingrese Precio" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="number">Pago Único</label>
+                            <input type="checkbox" class="form-control" name="pagoUnico" id="pagoUnico" placeholder="">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-block">Cargar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    
+    <div class="mt-4" style="display: flex; justify-content: center !important;">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Pago Único</th>
+                    <th class="col-md-2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                    {% for dispositivo in dispositivos %}
+                    <tr>
+                        <td>{{ dispositivo.id }}</td>
+                        <td>{{ dispositivo.nombre }}</td>
+                        <td>${{ dispositivo.precio }}</td>
+                        <td><input type="checkbox" {% if dispositivo.pagoUnico == True %} checked {% endif %} disabled></td>
+                        <td>
+                            <button onclick="editDispositivo({{ dispositivo.id }}, '{{ dispositivo.nombre }}', {{ dispositivo.precio }}, '{{ dispositivo.pagoUnico }}')" class="btn btn-dark btn-sm">Editar</button>
+                            <button onclick="borrarDispositivo({{ dispositivo.id }})" class="btn btn-danger btn-sm">Borrar</button>
+                        </td>   
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    
+    <!-- Modal edicion -->
+    <div class="modal" id="modalEdicion" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form -->
+                <form class=""  action="{% url 'edit_dispositivos' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <input type="hidden" name="idEdicion" id="idEdicion">
+                        <div class="form-group col-md-6">
+                            <label for="name">Dispositivo</label>
+                            <input type="text" class="form-control" name="nameEdicion" id="nameEdicion" placeholder="Ingrese nombre" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="number">Precio</label>
+                            <input type="text" class="form-control" name="precioEdicion" id="precioEdicion" placeholder="Ingrese Precio" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="number">Pago Único</label>
+                            <input type="checkbox" class="form-control" name="pagoUnicoEdicion" id="pagoUnicoEdicion" placeholder="">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-block">Editar</button>
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
+
+{% endif %}
+
+
+{% endblock %}
