@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 import json
 from django.db.models import ProtectedError
+from fpdf import FPDF
+
 
 
 
@@ -93,3 +95,30 @@ def generar_pdf(request):
         return render(request, "generar_pdf.html", {
             "dispositivos": dispositivos
          })
+    else:
+        #Generar PDF, si es POST viene con toda la info
+        data = request.body
+        data = data.decode('utf-8')
+        data = json.loads(data)
+        #print(data)
+        for dict in data:
+            print(dict)
+            print(type(dict))
+
+        # Create instance of FPDF class
+        pdf = FPDF()
+        pdf.add_page()
+
+        # Set title and fonts
+        pdf.set_font('Arial', 'B', 16)
+        pdf.cell(40, 10, 'Hello from Django!', ln=True)
+        
+        # Add a line of text
+        pdf.set_font('Arial', '', 12)
+        pdf.cell(40, 10, 'This is a sample PDF created with FPDF in Django.', ln=True)
+
+        response = HttpResponse(bytes(pdf.output()), content_type='application/pdf')
+        response['Content-Disposition'] = "attachment; filename=myfilename.pdf"
+        return response
+
+        return JsonResponse({'result':'ok'})
