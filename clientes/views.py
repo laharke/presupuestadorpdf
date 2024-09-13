@@ -120,5 +120,3 @@ def generar_pdf(request):
         response = HttpResponse(bytes(pdf.output()), content_type='application/pdf')
         response['Content-Disposition'] = "attachment; filename=myfilename.pdf"
         return response
-
-        return JsonResponse({'result':'ok'})

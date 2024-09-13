@@ -16,17 +16,17 @@
                 <form class="card p-4"  action="{% url 'abm_dispositivos' %}" method="post">
                     {% csrf_token %}
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-10">
                             <label for="name">Dispositivo</label>
                             <input type="text" class="form-control" name="nombreDispositivo" id="name" placeholder="Ingrese nombre" required>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="number">Precio</label>
-                            <input type="text" class="form-control" name="precioDispositivo" id="number" placeholder="Ingrese Precio" required>
+                            <label for="number">Precio $</label>
+                            <input type="text" class="form-control" name="precioDispositivo" id="number" placeholder="Ingrese Precio" inputmode="numeric" pattern="\d*" required>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4" style="text-align: center !important;">
                             <label for="number">Pago Único</label>
-                            <input type="checkbox" class="form-control" name="pagoUnico" id="pagoUnico" placeholder="">
+                            <input type="checkbox" class="form-control" name="pagoUnico" id="pagoUnico" placeholder="" style="accent-color: #546ed4;">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-dark btn-block">Cargar</button>
@@ -44,8 +44,8 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Precio</th>
-                    <th>Pago Único</th>
-                    <th class="col-md-2">Action</th>
+                    <th style="text-align: center;" class="col-md-2">Pago Único</th>
+                    <th style="text-align: center;" class="col-md-2">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,8 +55,8 @@
                         <td>{{ dispositivo.id }}</td>
                         <td>{{ dispositivo.nombre }}</td>
                         <td>${{ dispositivo.precio }}</td>
-                        <td><input type="checkbox" {% if dispositivo.pagoUnico == True %} checked {% endif %} disabled></td>
-                        <td>
+                        <td style="text-align:center;" class="checkbox-container"><input style="width:30px; height:30px;"  type="checkbox" {% if dispositivo.pagoUnico == True %} checked {% endif %} disabled></td>
+                        <td style="text-align: center !important;">
                             <button onclick="editDispositivo({{ dispositivo.id }}, '{{ dispositivo.nombre }}', {{ dispositivo.precio }}, '{{ dispositivo.pagoUnico }}')" class="btn btn-dark btn-sm">Editar</button>
                             <button onclick="borrarDispositivo({{ dispositivo.id }})" class="btn btn-danger btn-sm">Borrar</button>
                         </td>   
@@ -83,7 +83,7 @@
                     {% csrf_token %}
                     <div class="form-row">
                         <input type="hidden" name="idEdicion" id="idEdicion">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-10">
                             <label for="name">Dispositivo</label>
                             <input type="text" class="form-control" name="nameEdicion" id="nameEdicion" placeholder="Ingrese nombre" required>
                         </div>
@@ -91,9 +91,9 @@
                             <label for="number">Precio</label>
                             <input type="text" class="form-control" name="precioEdicion" id="precioEdicion" placeholder="Ingrese Precio" required>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4" style="text-align: center !important;">
                             <label for="number">Pago Único</label>
-                            <input type="checkbox" class="form-control" name="pagoUnicoEdicion" id="pagoUnicoEdicion" placeholder="">
+                            <input type="checkbox" class="form-control" name="pagoUnicoEdicion" id="pagoUnicoEdicion" placeholder="" style="accent-color: #546ed4;">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-dark btn-block">Editar</button>

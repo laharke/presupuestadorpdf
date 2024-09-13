@@ -312,3 +312,20 @@ section p {
     max-width: 400px;
     width: 100%;
 }
+
+.checkbox-container:has(> input:disabled:checked)::after {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    background: #30323c;
+    display: inline-block;
+    border: 1px solid #000000;
+    border-radius: 3px;
+    color: white;
+    content: "X";
+    text-align: center;
+}
+
+.checkbox-container input:disabled:checked {
+    display: none
+}
