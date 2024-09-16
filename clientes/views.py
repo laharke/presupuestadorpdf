@@ -102,11 +102,12 @@ def generar_pdf(request):
         data = request.body
         data = data.decode('utf-8')
         data = json.loads(data)
-        
-
+        empresa = data['empresa']
+        data = data['tableData']
         date = get_date()
-        empresa = 'Test Empresa'
-        
+
+        if empresa == '':
+            empresa = 'Nixel'
         data = filter_data(data)
         pdf = create_pdf(date, data, empresa)
 

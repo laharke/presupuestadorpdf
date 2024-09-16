@@ -18,9 +18,14 @@ const csrftoken = getCookie('csrftoken');
 
 function generar_pdf() {
     tableData = getTableData();
+    empresa = $('#empresa').val()
     fetch('/generar_pdf', {
         method: 'POST',
-        body:JSON.stringify(tableData),
+        body: JSON.stringify({
+            tableData: tableData,
+            empresa: empresa  
+        }),
+    
         headers: {
             "X-CSRFToken": csrftoken
         }
