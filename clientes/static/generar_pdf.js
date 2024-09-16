@@ -18,7 +18,6 @@ const csrftoken = getCookie('csrftoken');
 
 function generar_pdf() {
     tableData = getTableData();
-    console.log(tableData)
     fetch('/generar_pdf', {
         method: 'POST',
         body:JSON.stringify(tableData),
