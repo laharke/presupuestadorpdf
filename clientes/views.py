@@ -116,7 +116,24 @@ def generar_pdf(request):
         response['Content-Disposition'] = "attachment; filename=myfilename.pdf"
         return response
     
+#dashboard
+def dashboard(request):
+    data_points = [
+        { "label": "Enero",  "y": 10  },
+        { "label": "Febrero", "y": 15  },
+        { "label": "Marzo", "y": 25  },
+        { "label": "Abril",  "y": 30  },
+        { "label": "Mayo",  "y": 28  },
+        { "label": "Junio", "y": 15  },
+        { "label": "Julio", "y": 25  },
+        { "label": "Agosto",  "y": 30  },
+        { "label": "Septiembre", "y": 15  },
+        { "label": "Octubre", "y": 25  },
+        { "label": "Noviembre",  "y": 30  },
+        { "label": "Diciembre",  "y": 21  }
+    ]
 
+    return render(request, "dashboard.html", { "data_points" : data_points })
 
 
 
@@ -165,9 +182,11 @@ def create_pdf(date, data, empresa):
     totalMensual = 0
     totalPagoUnico = 0
     for item in data:
-        #print(item)
+        print(item)
         if item["Bonificado"] == "Si":
             pdf.set_text_color(81, 166, 135)
+        else:
+            pdf.set_text_color(0, 0, 0)
         pdf.cell(45, 8, item["Nombre"], border=1, align="C")
         pdf.cell(45, 8, str(item["Cantidad"]), border=1, align="C")
         pdf.cell(45, 8, f"$ {format(float(item['Precio']), ',.2f')}", border=1, align="C")
@@ -189,6 +208,8 @@ def create_pdf(date, data, empresa):
     pdf.cell(90, 6, "TOTAL INSTALACION(PAGO UNICO)", border="RLB", align="C", fill=True)
     pdf.cell(45, 6, f"$ {format(float(totalPagoUnico), ',.2f')}", border="RLB", align="C", fill=True)
     pdf.set_font("times", "", 10)
+    pdf.ln(7)
+    pdf.cell(31, 6, "Los elementos marcados con verde son bonificados")
     pdf.ln(20)
     pdf.cell(31, 6, "Mas informacion en: ")
     pdf.cell(31, 6, "http://www.globalgps.com.ar", link="http://www.globalgps.com.ar")

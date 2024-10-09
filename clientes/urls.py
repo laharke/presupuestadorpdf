@@ -11,4 +11,5 @@ urlpatterns = [
     path("borrar_dispositivo", views.borrar_dispositivo, name="borrar_dispositivo"),
     path("edit_dispositivos", views.edit_dispositivos, name="edit_dispositivos"),
     path("generar_pdf", views.generar_pdf, name="generar_pdf"),
+    path("dashboard", views.dashboard, name="dashboard")
 ]
